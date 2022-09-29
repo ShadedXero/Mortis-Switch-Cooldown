@@ -1,0 +1,4 @@
+name: WeaponSwitchCooldown
+version: '1.0'
+main: me.none030.weaponswitchcooldown.WeaponSwitchCooldown
+api-version: 1.18

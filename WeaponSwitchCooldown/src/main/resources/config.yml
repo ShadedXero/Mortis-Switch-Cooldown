@@ -1,0 +1,7 @@
+plugin:
+  weapons:
+    - "§eAK-47:3" #Weapon's-Name:Cooldown
+    - "§eType 95:5"
+    - "§eHunting Rifle:7"
+    - "§eOlympia:2"
+  deny-message: "§cThis weapon is in cooldown for %cooldown% seconds."
