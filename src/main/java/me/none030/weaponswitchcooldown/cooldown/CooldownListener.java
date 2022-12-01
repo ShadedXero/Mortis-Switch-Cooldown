@@ -1,0 +1,71 @@
+package me.none030.weaponswitchcooldown.cooldown;
+
+import com.shampaggon.crackshot.CSUtility;
+import com.shampaggon.crackshot.events.WeaponPrepareShootEvent;
+import me.none030.weaponswitchcooldown.WeaponSwitchCooldown;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import static me.none030.weaponswitchcooldown.cooldown.CooldownConfigManager.DenyMessage;
+
+public class CooldownListener implements Listener {
+
+    public WeaponSwitchCooldown plugin = WeaponSwitchCooldown.getInstance();
+    public CSUtility crackShot = WeaponSwitchCooldown.getCrackShot();
+
+    @EventHandler
+    public void onShoot(WeaponPrepareShootEvent e) {
+
+        Player player = e.getPlayer();
+
+        if (plugin.getCooldownManager().getInCooldown().get(player.getUniqueId()) == null) {
+            return;
+        }
+        long value = plugin.getCooldownManager().getInCooldown().get(player.getUniqueId());
+        double cooldown =  value / 20.0;
+        player.sendMessage(DenyMessage.replace("%cooldown%", String.valueOf(cooldown)));
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onSwitch(PlayerItemHeldEvent e) {
+
+        Player player = e.getPlayer();
+        ItemStack item = player.getInventory().getItem(e.getNewSlot());
+        if (item == null || item.getType().equals(Material.AIR)) {
+            return;
+        }
+        if (item.getItemMeta() == null) {
+            return;
+        }
+        if (!item.getItemMeta().hasDisplayName()) {
+            return;
+        }
+
+        String title = crackShot.getWeaponTitle(item);
+        for (Weapon weapon : plugin.getCooldownManager().getCooldownConfigManager().getWeapons()) {
+            if (title.equals(weapon.getName())) {
+                plugin.getCooldownManager().getInCooldown().put(player.getUniqueId(), weapon.getCooldown());
+                long cooldown = weapon.getCooldown();
+                long[] count = {cooldown};
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        count[0] = count[0] - 5;
+                        if (count[0] <= 0) {
+                            plugin.getCooldownManager().getInCooldown().remove(player.getUniqueId());
+                            cancel();
+                        }
+                        plugin.getCooldownManager().getInCooldown().put(player.getUniqueId(), count[0]);
+                    }
+                }.runTaskTimer(plugin, 0L, 5L);
+                break;
+            }
+        }
+    }
+}
