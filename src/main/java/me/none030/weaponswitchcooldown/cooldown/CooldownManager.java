@@ -15,7 +15,7 @@ public class CooldownManager {
     public CooldownManager() {
         inCooldown = new HashMap<>();
         this.cooldownConfigManager = new CooldownConfigManager();
-        plugin.getServer().getPluginManager().registerEvents(new CooldownListener(), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new CooldownListener(this), plugin);
     }
 
     public CooldownConfigManager getCooldownConfigManager() {

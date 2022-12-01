@@ -18,15 +18,21 @@ public class CooldownListener implements Listener {
     public WeaponSwitchCooldown plugin = WeaponSwitchCooldown.getInstance();
     public CSUtility crackShot = WeaponSwitchCooldown.getCrackShot();
 
+    public CooldownManager manager;
+
+    public CooldownListener(CooldownManager manager) {
+        this.manager = manager;
+    }
+
     @EventHandler
     public void onShoot(WeaponPrepareShootEvent e) {
 
         Player player = e.getPlayer();
 
-        if (plugin.getCooldownManager().getInCooldown().get(player.getUniqueId()) == null) {
+        if (manager.getInCooldown().get(player.getUniqueId()) == null) {
             return;
         }
-        long value = plugin.getCooldownManager().getInCooldown().get(player.getUniqueId());
+        long value = manager.getInCooldown().get(player.getUniqueId());
         double cooldown =  value / 20.0;
         player.sendMessage(DenyMessage.replace("%cooldown%", String.valueOf(cooldown)));
         e.setCancelled(true);
@@ -48,9 +54,9 @@ public class CooldownListener implements Listener {
         }
 
         String title = crackShot.getWeaponTitle(item);
-        for (Weapon weapon : plugin.getCooldownManager().getCooldownConfigManager().getWeapons()) {
+        for (Weapon weapon : manager.getCooldownConfigManager().getWeapons()) {
             if (title.equals(weapon.getName())) {
-                plugin.getCooldownManager().getInCooldown().put(player.getUniqueId(), weapon.getCooldown());
+                manager.getInCooldown().put(player.getUniqueId(), weapon.getCooldown());
                 long cooldown = weapon.getCooldown();
                 long[] count = {cooldown};
                 new BukkitRunnable() {
@@ -58,10 +64,10 @@ public class CooldownListener implements Listener {
                     public void run() {
                         count[0] = count[0] - 5;
                         if (count[0] <= 0) {
-                            plugin.getCooldownManager().getInCooldown().remove(player.getUniqueId());
+                            manager.getInCooldown().remove(player.getUniqueId());
                             cancel();
                         }
-                        plugin.getCooldownManager().getInCooldown().put(player.getUniqueId(), count[0]);
+                        manager.getInCooldown().put(player.getUniqueId(), count[0]);
                     }
                 }.runTaskTimer(plugin, 0L, 5L);
                 break;
