@@ -57,6 +57,9 @@ public class CooldownListener implements Listener {
         }
 
         String title = crackShot.getWeaponTitle(item);
+        if (title == null) {
+            return;
+        }
         for (Weapon weapon : manager.getCooldownConfigManager().getWeapons()) {
             if (title.equals(weapon.getName())) {
                 manager.getInCooldown().put(player.getUniqueId(), weapon.getCooldown());
