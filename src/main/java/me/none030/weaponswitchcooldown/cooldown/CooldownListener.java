@@ -11,6 +11,8 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.text.DecimalFormat;
+
 import static me.none030.weaponswitchcooldown.cooldown.CooldownConfigManager.DenyMessage;
 
 public class CooldownListener implements Listener {
@@ -27,6 +29,7 @@ public class CooldownListener implements Listener {
     @EventHandler
     public void onShoot(WeaponPrepareShootEvent e) {
 
+        DecimalFormat df = new DecimalFormat("#.#");
         Player player = e.getPlayer();
 
         if (manager.getInCooldown().get(player.getUniqueId()) == null) {
@@ -34,7 +37,7 @@ public class CooldownListener implements Listener {
         }
         long value = manager.getInCooldown().get(player.getUniqueId());
         double cooldown =  value / 20.0;
-        player.sendMessage(DenyMessage.replace("%cooldown%", String.valueOf(cooldown)));
+        player.sendMessage(DenyMessage.replace("%cooldown%", df.format(cooldown)));
         e.setCancelled(true);
     }
 
@@ -62,12 +65,16 @@ public class CooldownListener implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        count[0] = count[0] - 5;
+                        count[0] = count[0] - 1;
+                        manager.getInCooldown().put(player.getUniqueId(), count[0]);
+                        if (player.getInventory().getHeldItemSlot() != e.getNewSlot()) {
+                            manager.getInCooldown().remove(player.getUniqueId());
+                            cancel();
+                        }
                         if (count[0] <= 0) {
                             manager.getInCooldown().remove(player.getUniqueId());
                             cancel();
                         }
-                        manager.getInCooldown().put(player.getUniqueId(), count[0]);
                     }
                 }.runTaskTimer(plugin, 0L, 5L);
                 break;

@@ -1,10 +1,10 @@
 weapons:
   AK-47:
-    cooldown: 200  # 1 = 5 Ticks | 20 Ticks = 1 Second
-  Type-95:
-    cooldown: 100
-  Hunting-Rifle:
-    cooldown: 140
+    cooldown: 40  # 1 = 5 Ticks | 20 Ticks = 1 Second
+  Type95:
+    cooldown: 20
+  Hunting:
+    cooldown: 28
   Olympia:
-    cooldown: 40
+    cooldown: 8
 deny-message: "&cThis weapon is in cooldown for %cooldown% seconds."
