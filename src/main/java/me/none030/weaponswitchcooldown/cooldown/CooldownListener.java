@@ -36,7 +36,7 @@ public class CooldownListener implements Listener {
             return;
         }
         long value = manager.getInCooldown().get(player.getUniqueId());
-        double cooldown =  value / 20.0;
+        double cooldown =  (value * 5) / 20.0;
         player.sendMessage(DenyMessage.replace("%cooldown%", df.format(cooldown)));
         e.setCancelled(true);
     }
