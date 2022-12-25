@@ -9,13 +9,20 @@ public class CooldownManager {
 
     public WeaponSwitchCooldown plugin = WeaponSwitchCooldown.getInstance();
 
-    private final CooldownConfigManager cooldownConfigManager;
-    private final HashMap<UUID, Long> inCooldown;
+    private CooldownConfigManager cooldownConfigManager;
+    private HashMap<UUID, Long> inCooldown;
 
     public CooldownManager() {
         inCooldown = new HashMap<>();
         this.cooldownConfigManager = new CooldownConfigManager();
         plugin.getServer().getPluginManager().registerEvents(new CooldownListener(this), plugin);
+        CooldownCommand command = new CooldownCommand(this);
+        plugin.getServer().getPluginCommand("weaponcooldown").setExecutor(command);
+    }
+
+    public void reload() {
+        inCooldown = new HashMap<>();
+        this.cooldownConfigManager = new CooldownConfigManager();
     }
 
     public CooldownConfigManager getCooldownConfigManager() {

@@ -3,5 +3,6 @@ me\none030\weaponswitchcooldown\cooldown\CooldownManager.class
 me\none030\weaponswitchcooldown\utils\MessageUtils.class
 me\none030\weaponswitchcooldown\WeaponSwitchCooldown.class
 me\none030\weaponswitchcooldown\cooldown\CooldownListener$1.class
+me\none030\weaponswitchcooldown\cooldown\CooldownCommand.class
 me\none030\weaponswitchcooldown\cooldown\CooldownConfigManager.class
 me\none030\weaponswitchcooldown\cooldown\CooldownListener.class

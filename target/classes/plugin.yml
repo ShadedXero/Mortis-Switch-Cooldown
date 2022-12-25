@@ -2,3 +2,6 @@ name: WeaponSwitchCooldown
 version: '2.0'
 main: me.none030.weaponswitchcooldown.WeaponSwitchCooldown
 api-version: 1.13
+commands:
+  weaponcooldown:
+    aliases: mortisweaponcooldown
