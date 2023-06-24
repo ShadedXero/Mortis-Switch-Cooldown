@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.none030</groupId>
+    <groupId>com.mortisdevelopment</groupId>
     <artifactId>MortisSwitchCooldown</artifactId>
-    <version>3.0</version>
+    <version>3.2</version>
     <packaging>jar</packaging>
 
     <name>MortisSwitchCooldown</name>
@@ -38,6 +38,12 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.mortisdevelopment.mortiscorepaper</pattern>
+                                    <shadedPattern>com.mortisdevelopment.mortisswitchcooldown.mortiscorepaper</shadedPattern>
+                                </relocation>
+                            </relocations>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -67,29 +73,32 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.19.3-R0.1-SNAPSHOT</version>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.mortisdevelopment</groupId>
+            <artifactId>MortisCorePaper</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>com.shampaggon</groupId>
-            <artifactId>crackshot</artifactId>
+            <artifactId>CrackShot</artifactId>
             <version>0.98.11</version>
-            <scope>system</scope>
-            <systemPath>C:/Users/7th Genration/Downloads/CrackShot.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.deecaad</groupId>
-            <artifactId>weaponmechanics</artifactId>
-            <version>2.2.5</version>
-            <scope>system</scope>
-            <systemPath>C:/Users/7th Genration/Downloads/WeaponMechanics-2.2.5.jar</systemPath>
+            <artifactId>WeaponMechanics</artifactId>
+            <version>2.5.3</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.zombie_striker</groupId>
             <artifactId>QualityArmory</artifactId>
             <version>2.0.9</version>
-            <scope>system</scope>
-            <systemPath>C:/Users/7th Genration/Downloads/QualityArmory.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

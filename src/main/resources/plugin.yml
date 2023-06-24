@@ -1,0 +1,14 @@
+name: MortisSwitchCooldown
+version: '${project.version}'
+main: com.mortisdevelopment.mortisswitchcooldown.MortisSwitchCooldown
+api-version: 1.13
+softdepend:
+  - CrackShot
+  - WeaponMechanics
+  - QualityArmory
+commands:
+  cooldown:
+    aliases:
+      - mortiscooldown
+      - switchcooldown
+      - weaponswitchcooldown

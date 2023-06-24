@@ -1,0 +1,23 @@
+messages:
+  deny-message: "&cThis weapon is in cooldown for %cooldown% seconds."
+
+# Weapon-ID: Cooldown Length
+# 1 = 5 Ticks | 20 Ticks = 1 Second
+crack-shot:
+  AK-47: 40
+  Type95: 20
+  Hunting: 28
+  Olympia: 8
+
+weapon-mechanics:
+  AK-47: 40
+  Type95: 20
+  Hunting: 28
+  Olympia: 8
+
+quality-armory:
+  AK-47: 40
+  Type95: 20
+  Hunting: 28
+  Olympia: 8
+
